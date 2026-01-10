@@ -1,10 +1,3 @@
-/**
- * API Service
- * Handles all backend communication with authentication
- * 
- * Location: src/services/apiService.js
- */
-
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 class ApiService {
@@ -56,13 +49,21 @@ class ApiService {
 
       const data = await response.json();
 
-      // Handle unauthorized access
-      if (response.status === 401 || response.status === 403) {
-        this.clearToken();
-        throw new Error('Session expired. Please login again.');
-      }
-
+      // ✅ FIXED: Check response.ok FIRST, before handling 401/403
       if (!response.ok) {
+        // For login endpoint, don't clear token (there is none yet)
+        // Just throw the actual error from backend
+        if (endpoint === '/auth/login') {
+          throw new Error(data.error || 'Login failed');
+        }
+
+        // For authenticated endpoints, handle 401/403 as session expired
+        if (response.status === 401 || response.status === 403) {
+          this.clearToken();
+          throw new Error(data.error || 'Session expired. Please login again.');
+        }
+
+        // Other errors
         throw new Error(data.error || 'Request failed');
       }
 
