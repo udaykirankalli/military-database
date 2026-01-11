@@ -1,260 +1,178 @@
 # 🪖 Military Asset Management System
 
-A full-stack web application built to manage, track, and audit military assets such as vehicles, weapons, and ammunition across multiple bases.  
-The system ensures **operational transparency**, **secure access**, and **full accountability** through **Role-Based Access Control (RBAC)** and **audit logging**.
+A full-stack web application for managing military assets across multiple bases with role-based access control and comprehensive audit logging.
 
-This project was developed as part of a **Full Stack Engineer take-home assignment** and demonstrates real-world backend, frontend, and database design practices.
+> Built as a Full Stack Engineer assignment demonstrating production-ready development practices.
 
----
+## 🎯 Problem Statement
 
-## 📌 Problem Statement
+Military organizations need strict control over asset movement, assignments, and expenditures across distributed bases. This system provides:
 
-Military organizations require strict control over asset movement, assignments, and expenditures across geographically distributed bases.  
-Manual tracking or loosely controlled systems can lead to data inconsistency, lack of accountability, and operational risk.
-
-This system addresses these challenges by providing:
-
-- A centralized asset tracking platform  
-- Controlled access based on user roles  
-- A complete historical audit trail of all transactions  
-
----
-
-## 🎯 Key Objectives
-
-- Track **Opening Balance**, **Closing Balance**, and **Net Movement** of assets  
-- Record **Purchases**, **Transfers**, **Assignments**, and **Expenditures**  
-- Provide clear visibility of asset movement across bases  
-- Enforce strict **Role-Based Access Control (RBAC)**  
-- Maintain a permanent **audit log** for compliance and review  
-
----
+- Real-time asset tracking across all bases
+- Role-based access control for data security
+- Complete audit trail for compliance
+- Automated balance calculations and reporting
 
 ## ✨ Core Features
 
-### 📊 Dashboard
-- Displays key metrics:
-  - Opening Balance
-  - Closing Balance
-  - Net Movement
-  - Assigned Assets
-  - Expended Assets
-- Filter options:
-  - Date
-  - Base
-  - Equipment Type
-- Clicking **Net Movement** opens a detailed breakdown of:
-  - Purchases
-  - Transfers In
-  - Transfers Out
+- **Dashboard Analytics** - Real-time metrics with filtering by date, base, and equipment type
+- **Purchase Management** - Record and track asset acquisitions
+- **Transfer Management** - Handle inter-base asset movements
+- **Assignment Tracking** - Assign assets to personnel with accountability
+- **Expenditure Recording** - Track consumed assets
+- **Audit Logging** - Complete transaction history for compliance
 
-### 🧾 Purchases Management
-- Record new asset purchases per base  
-- View purchase history  
-- Filter by date and equipment type  
-- Access controlled based on role  
+## 👤 User Roles
 
-### 🔄 Transfers Management
-- Transfer assets between bases  
-- Track source and destination bases  
-- Maintain complete transfer history with timestamps  
-
-### 👥 Assignments & Expenditures
-- Assign assets to personnel  
-- Track expended or consumed assets  
-- Maintain accountability at the personnel level  
-
-### 🔐 Role-Based Access Control (RBAC)
-- Ensures users access only data relevant to their role  
-- Enforced on both frontend and backend  
-
-### 🧾 Audit Logging
-- Every critical action is logged  
-- Tracks **who did what and when**  
-- Supports traceability and compliance  
-
----
-
-## 👤 User Roles & Permissions
-
-### Admin
-- Full system access  
-- Can view and manage all bases  
-- Access to all operations and audit logs  
-
-### Base Commander
-- Access restricted to assigned base  
-- Can view and manage assets for their base  
-- Can create purchases, transfers, and assignments  
-
-### Logistics Officer
-- Limited access  
-- Can view purchases and transfers  
-- Cannot assign assets or manage users  
-
----
-
-## 🏗️ System Architecture
-
-Frontend (React + Tailwind)
-|
-| REST APIs (JWT Authentication)
-|
-Backend (Node.js + Express)
-|
-PostgreSQL Database
-
-markdown
-Copy code
-
-The application follows a **three-tier architecture**:
-- **Frontend:** Handles UI and user interaction  
-- **Backend:** Handles business logic, authentication, and authorization  
-- **Database:** Stores structured relational data with strong integrity  
-
----
+| Role | Access Level | Permissions |
+|------|--------------|-------------|
+| **Admin** | Global | Full system access, manage all bases, view audit logs |
+| **Base Commander** | Base-specific | Manage assigned base, create purchases/transfers/assignments |
+| **Logistics Officer** | Read-mostly | View purchases and transfers, limited modifications |
 
 ## 🛠 Tech Stack
 
-### Frontend
-- React.js – Component-based UI development  
-- Tailwind CSS – Responsive and modern styling  
-- Recharts – Dashboard data visualization  
-- Vercel – Frontend hosting  
+**Frontend:** React.js, Tailwind CSS, Recharts, Axios  
+**Backend:** Node.js, Express.js, JWT, bcrypt, Winston  
+**Database:** PostgreSQL  
+**Deployment:** Vercel (Frontend), Render (Backend + DB)
 
-### Backend
-- Node.js – Runtime environment  
-- Express.js – REST API framework  
-- JWT – Secure authentication  
-- bcrypt – Password hashing  
-- Winston – Logging and audit support  
-- Render – Backend hosting  
+## 🏗️ System Architecture
 
-### Database
-- PostgreSQL  
-  - ACID compliant  
-  - Strong relational integrity  
-  - Ideal for transactional and audit-heavy systems  
+```
+Frontend (React + Tailwind)
+        ↓
+REST APIs (JWT Auth)
+        ↓
+Backend (Node.js + Express)
+        ↓
+PostgreSQL Database
+```
 
----
+## 🗄️ Database Schema
 
-## 🗄️ Database Design
+**Core Tables:**
+- `users` - Authentication and roles
+- `bases` - Military base information
+- `equipment_types` - Asset categories
+- `assets` - Current inventory per base
+- `purchases` - Procurement records
+- `transfers` - Inter-base movements
+- `assignments` - Asset-to-personnel mapping
+- `expenditures` - Consumption records
+- `audit_logs` - Complete transaction history
 
-### Core Tables
-- users – Authentication and roles  
-- bases – Military bases  
-- equipment_types – Asset categories  
-- assets – Inventory per base  
-- purchases – Procurement records  
-- transfers – Inter-base movements  
-- assignments – Asset-to-personnel mapping  
-- expenditures – Asset usage/consumption  
-- audit_logs – Complete transaction history  
+## 🔗 API Endpoints
 
-### Relationships
-- Users → Bases  
-- Purchases → Bases & Equipment Types  
-- Transfers → From Base → To Base  
-- Assignments → Assets & Personnel  
-- Audit Logs → Users & Entities  
+### Authentication
+```
+POST   /api/auth/login
+POST   /api/auth/register
+GET    /api/auth/me
+```
 
----
+### Dashboard & Assets
+```
+GET    /api/dashboard/metrics
+GET    /api/dashboard/movement
+GET    /api/purchases
+POST   /api/purchases
+GET    /api/transfers
+POST   /api/transfers
+GET    /api/assignments
+POST   /api/assignments
+GET    /api/expenditures
+POST   /api/expenditures
+GET    /api/audit-logs
+```
 
-## 🧾 API Logging & Auditing
+## ▶️ Installation
 
-- All create, update, and delete operations are logged  
-- Each log includes:
-  - User ID
-  - Action type
-  - Entity affected
-  - Timestamp
-- Logs are stored persistently in the `audit_logs` table  
+### Prerequisites
+- Node.js v14+
+- PostgreSQL v12+
 
-This ensures **full traceability** and supports audit and compliance requirements.
+### Backend Setup
 
----
-
-## 🔗 API Endpoints (Sample)
-
-  - POST /api/auth/login
-  - GET /api/dashboard/metrics
-  - GET /api/purchases
-  - POST /api/purchases
-  - GET /api/transfers
-  - POST /api/transfers
-  -  GET /api/assignments
-  - GET /api/audit-logs
-
-yaml
-Copy code
-
----
-
-## ▶️ Running the Project Locally
-
-### Backend
 ```bash
 cd backend
 npm install
-npm start
 
-Frontend
-bash
-Copy code
+# Create .env file
+DATABASE_URL=postgresql://username:password@localhost:5432/military_assets
+JWT_SECRET=your_secret_key
+PORT=5000
+
+# Run migrations and seed
+npm run migrate
+npm run seed
+npm start
+```
+
+### Frontend Setup
+
+```bash
 cd frontend
 npm install
+
+# Create .env file
+REACT_APP_API_URL=http://localhost:5000/api
+
 npm start
+```
 
+## 🔑 Demo Credentials
 
----
-
-## 🔑 Demo Login Credentials (FIXED)
-
-```md
-## 🔑 Demo Login Credentials
-
-- **Admin:** `admin@military.gov / demo123`
-- **Commander:** `commander.alpha@military.gov / demo123`
-- **Logistics:** `logistics@military.gov / demo123`
-
+| Role | Email | Password |
+|------|-------|----------|
+| **Admin** | `admin@military.gov` | `demo123` |
+| **Base Commander** | `commander.alpha@military.gov` | `demo123` |
+| **Logistics Officer** | `logistics@military.gov` | `demo123` |
 
 ## 🚀 Deployment
 
-- **Frontend:** Vercel  
-- **Backend:** Render  
-- **Database:** Render PostgreSQL  
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** Render PostgreSQL
 
-> Free-tier hosting is used, so initial requests may experience cold-start delays.
-
-
-## 📄 Documentation & Demo
-
-- Detailed technical documentation is provided in the submitted PDF  
-- A 3–5 minute video walkthrough demonstrates:
-  - System architecture
-  - Core features
-  - Role-based access
-  - Live deployment
-
+> ⚠️ **Note:** Free-tier hosting may experience cold-start delays on initial requests.
 
 ## 📈 Future Enhancements
 
-- Real-time notifications  
-- Advanced analytics and reporting  
-- Asset lifecycle management  
-- Multi-level approval workflows  
+- Real-time notifications
+- Advanced analytics and reporting
+- Asset lifecycle management
+- Multi-level approval workflows
+- Mobile application
 
+## ✅ Project Highlights
 
-## ✅ Conclusion
+- End-to-end full stack development
+- Secure JWT authentication & RBAC
+- Clean database design with proper relationships
+- RESTful API design
+- Production deployment ready
+- Real-world problem solving
 
-This project demonstrates:
+## 📧 Contact
 
-- End-to-end full-stack development  
-- Secure authentication and RBAC  
-- Clean and scalable database design  
-- Real-world backend engineering practices  
-- Production deployment readiness  
+**Uday Kiran Kalli**
+
+- 📧 Email: kalliudaykiran@gmail.com
+- 💼 LinkedIn: [linkedin.com/in/udaykirankalli](https://www.linkedin.com/in/udaykirankalli/)
+- 🐱 GitHub: [github.com/udaykirankalli](https://github.com/udaykirankalli)
+- 🌐 Portfolio: [udaykirankalli.vercel.app](https://udaykirankalli.vercel.app/)
+
+## 📝 License
+
+This project is for educational and demonstration purposes.
 
 ---
 
-Built with ❤️ by **Uday Kiran Kalli**
+<div align="center">
+
+**Built with ❤️ by Uday Kiran Kalli**
+
+⭐ Star this repo if you found it helpful! ⭐
+
+</div>
