@@ -198,7 +198,6 @@ cd backend
 npm install
 npm start
 
-
 Frontend
 bash
 Copy code
@@ -206,70 +205,56 @@ cd frontend
 npm install
 npm start
 
+
 ---
 
+## 🔑 Demo Login Credentials (FIXED)
+
+```md
 ## 🔑 Demo Login Credentials
-graphql
-Copy code
-Admin:
-admin@military.gov / demo123
 
-Commander:
-commander.alpha@military.gov / demo123
+- **Admin:** `admin@military.gov / demo123`
+- **Commander:** `commander.alpha@military.gov / demo123`
+- **Logistics:** `logistics@military.gov / demo123`
 
-Logistics:
-logistics@military.gov / demo123
 
----
+## 🚀 Deployment
 
-##🚀 Deployment
-Frontend: Vercel
+- **Frontend:** Vercel  
+- **Backend:** Render  
+- **Database:** Render PostgreSQL  
 
-Backend: Render
+> Free-tier hosting is used, so initial requests may experience cold-start delays.
 
-Database: Render PostgreSQL
 
-Free-tier hosting is used, so initial requests may experience cold-start delays.
+## 📄 Documentation & Demo
 
----
+- Detailed technical documentation is provided in the submitted PDF  
+- A 3–5 minute video walkthrough demonstrates:
+  - System architecture
+  - Core features
+  - Role-based access
+  - Live deployment
 
-##📄 Documentation & Demo
-Detailed technical documentation provided in the submitted PDF
 
-3–5 minute video walkthrough demonstrates:
+## 📈 Future Enhancements
 
-System architecture
+- Real-time notifications  
+- Advanced analytics and reporting  
+- Asset lifecycle management  
+- Multi-level approval workflows  
 
-Core features
 
-Role-based access
+## ✅ Conclusion
 
-Live deployment
-
----
-
-##📈 Future Enhancements
-Real-time notifications
-
-Advanced analytics and reporting
-
-Asset lifecycle management
-
-Multi-level approval workflows
-
----
-##✅ Conclusion
 This project demonstrates:
 
-End-to-end full-stack development
+- End-to-end full-stack development  
+- Secure authentication and RBAC  
+- Clean and scalable database design  
+- Real-world backend engineering practices  
+- Production deployment readiness  
 
-Secure authentication and RBAC
-
-Clean and scalable database design
-
-Real-world backend engineering practices
-
-Production deployment readiness
 ---
 
-## Built with ❤️ by Uday Kiran Kalli
+Built with ❤️ by **Uday Kiran Kalli**
