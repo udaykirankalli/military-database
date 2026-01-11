@@ -176,14 +176,14 @@ This ensures **full traceability** and supports audit and compliance requirement
 
 ## 🔗 API Endpoints (Sample)
 
-POST /api/auth/login
-GET /api/dashboard/metrics
-GET /api/purchases
-POST /api/purchases
-GET /api/transfers
-POST /api/transfers
-GET /api/assignments
-GET /api/audit-logs
+  - POST /api/auth/login
+  - GET /api/dashboard/metrics
+  - GET /api/purchases
+  - POST /api/purchases
+  - GET /api/transfers
+  - POST /api/transfers
+  -  GET /api/assignments
+  - GET /api/audit-logs
 
 yaml
 Copy code
@@ -197,13 +197,18 @@ Copy code
 cd backend
 npm install
 npm start
+
+
 Frontend
 bash
 Copy code
 cd frontend
 npm install
 npm start
-🔑 Demo Login Credentials
+
+---
+
+## 🔑 Demo Login Credentials
 graphql
 Copy code
 Admin:
@@ -214,7 +219,10 @@ commander.alpha@military.gov / demo123
 
 Logistics:
 logistics@military.gov / demo123
-🚀 Deployment
+
+---
+
+##🚀 Deployment
 Frontend: Vercel
 
 Backend: Render
@@ -223,7 +231,9 @@ Database: Render PostgreSQL
 
 Free-tier hosting is used, so initial requests may experience cold-start delays.
 
-📄 Documentation & Demo
+---
+
+##📄 Documentation & Demo
 Detailed technical documentation provided in the submitted PDF
 
 3–5 minute video walkthrough demonstrates:
@@ -236,7 +246,9 @@ Role-based access
 
 Live deployment
 
-📈 Future Enhancements
+---
+
+##📈 Future Enhancements
 Real-time notifications
 
 Advanced analytics and reporting
@@ -245,7 +257,8 @@ Asset lifecycle management
 
 Multi-level approval workflows
 
-✅ Conclusion
+---
+##✅ Conclusion
 This project demonstrates:
 
 End-to-end full-stack development
@@ -257,5 +270,6 @@ Clean and scalable database design
 Real-world backend engineering practices
 
 Production deployment readiness
+---
 
-Built with ❤️ by Uday Kiran Kalli
+## Built with ❤️ by Uday Kiran Kalli
