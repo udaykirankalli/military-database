@@ -1,9 +1,4 @@
-/**
- * Login Page Component
- * Handles user authentication
- * 
- * Location: src/components/LoginPage.js
- */
+
 
 import React, { useState } from 'react';
 import { Shield, AlertCircle } from 'lucide-react';

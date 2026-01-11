@@ -30,50 +30,43 @@ class ApiService {
   /**
    * Generic request handler with authentication
    */
-  async request(endpoint, options = {}) {
-    const headers = {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    };
+async request(endpoint, options = {}) {
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options.headers,
+  };
 
-    // Add JWT token to headers if available
-    if (this.token) {
-      headers['Authorization'] = `Bearer ${this.token}`;
-    }
-
-    try {
-      const response = await fetch(`${API_URL}${endpoint}`, {
-        ...options,
-        headers,
-      });
-
-      const data = await response.json();
-
-      // ✅ FIXED: Check response.ok FIRST, before handling 401/403
-      if (!response.ok) {
-        // For login endpoint, don't clear token (there is none yet)
-        // Just throw the actual error from backend
-        if (endpoint === '/auth/login') {
-          throw new Error(data.error || 'Login failed');
-        }
-
-        // For authenticated endpoints, handle 401/403 as session expired
-        if (response.status === 401 || response.status === 403) {
-          this.clearToken();
-          throw new Error(data.error || 'Session expired. Please login again.');
-        }
-
-        // Other errors
-        throw new Error(data.error || 'Request failed');
-      }
-
-      return data;
-
-    } catch (error) {
-      console.error('API Error:', error);
-      throw error;
-    }
+  // Add JWT token to headers if available
+  if (this.token) {
+    headers['Authorization'] = `Bearer ${this.token}`;
   }
+
+  try {
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      ...options,
+      headers,
+    });
+
+    const data = await response.json();
+
+    // Handle authentication errors
+    if (response.status === 401 || response.status === 403) {
+      this.clearToken();
+      throw new Error(data.error || 'Session expired. Please login again.');
+    }
+
+    // Handle other errors
+    if (!response.ok) {
+      throw new Error(data.error || 'Request failed');
+    }
+
+    return data;
+
+  } catch (error) {
+    console.error('API Error:', error);
+    throw error;
+  }
+}
 
   /**
    * Authentication: Login user

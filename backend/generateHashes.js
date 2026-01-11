@@ -1,4 +1,3 @@
-
 const bcrypt = require('bcryptjs');
 
 // Configuration
@@ -41,9 +40,6 @@ const users = [
   }
 ];
 
-/**
- * Main function to generate password hashes
- */
 async function generatePasswordHashes() {
   console.log('='.repeat(70));
   console.log('  Military Asset Management System - Password Hash Generator');
@@ -64,26 +60,34 @@ async function generatePasswordHashes() {
     console.log(`  Role: ${user.role}`);
     console.log(`  Description: ${user.description}`);
 
-    // Generate hash for the password
     const passwordHash = await bcrypt.hash(DEMO_PASSWORD, SALT_ROUNDS);
     console.log(`  Password Hash: ${passwordHash}`);
     console.log('-'.repeat(70));
 
-    // Prepare SQL value
     const baseIdValue = user.base_id === null ? 'NULL' : user.base_id;
     sqlValues.push(
       `('${user.email}', '${passwordHash}', '${user.name}', '${user.role}', ${baseIdValue})`
     );
   }
 
+  console.log();
+  console.log('='.repeat(70));
+  console.log('  COPY THE SQL BELOW AND RUN IN YOUR DATABASE');
+  console.log('='.repeat(70));
+  console.log();
+  console.log('-- Step 1: Delete existing users');
+  console.log('DELETE FROM users;');
+  console.log();
+  console.log('-- Step 2: Insert users with correct password hashes');
+  console.log('INSERT INTO users (email, password_hash, name, role, base_id) VALUES');
+  console.log(sqlValues.join(',\n') + ';');
+  console.log();
+  console.log('='.repeat(70));
+}
 
-  }
-
-// Execute the generator
 generatePasswordHashes()
   .then(() => {
-    console.log(' Hash generation completed successfully!');
-    console.log();
+    console.log('✅ Hash generation completed successfully!');
     process.exit(0);
   })
   .catch((error) => {
